@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin dashboard</title>
+    <style>
+           body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            min-height: calc(89.5vh - 60px);
+            width: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #D4F1F4;
+            overflow-x: hidden;
+            transition: 0s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #0f6b7c;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #0f6b7c;
+        }
+
+        .sidebar .closebtn {
+            position: sticky;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            left: 20px;
+            margin-left: 50px;
+        }
+
+        .openbtn {
+            font-size: 30px;
+            /* Increase the font size as desired */
+            cursor: pointer;
+            background-color: #D4F1F4;
+            color: #0f6b7c;
+            padding: 10px 15px;
+            border: none;
+            position: Sticky;
+            left: 0px;
+            top: auto;
+            z-index: 9999;
+            /* Ensure the toggle button is above other elements */
+        }
+
+
+
+        .openbtn:hover {
+            background-color: #D4F1F4;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+        }
+
+        .header_section {
+            position: relative;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+            /* Adjust margin to avoid overlap */
+        }
+
+        .logo {
+            margin-right: 10px;
+            max-width: 50px;
+            /* Limit the logo size */
+            height: auto;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            /* Maintain the font size of the title */
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            /* Adjust spacing between rows */
+        }
+
+        .square-button {
+            width: 350px;
+            /* Adjust button width as needed */
+            height: 250px;
+            /* Set height equal to width for square shape */
+            background-color: #fff;
+            /* Button background color */
+            color: #000000;
+            /* Button text color */
+            border: none;
+            /* Remove button border */
+            border-radius: 10px;
+            /* Button border radius */
+            font-size: 18px;
+            /* Button text size */
+            font-weight: bold;
+            /* Button text weight */
+            cursor: pointer;
+            /* Change cursor to pointer on hover */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            /* Add shadow */
+            margin: 10px;
+            /* Adjust spacing between buttons */
+        }
+
+        .square-button:hover {
+            background-color: #6A679E;
+            /* Change background color on hover */
+        }
+        .search-container{      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-left: 100px;
+    }
+
+    .search-input {
+      width: 300px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .search-button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      background-color:   #D4F1F4;
+      color:#032d40;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .filter-container {
+      display: flex;
+      height: 50px;
+      justify-content: center;
+      margin-top: 20px;
+      margin-left: 500px;
+    }
+
+    .filter-select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* CSS for the list items */
+    .item-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .item {
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-radius: 5px;
+    }
+    .post-card {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .post-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .post-content {
+        font-size: 16px;
+    }
+    .post-details img {
+    max-width: 300px; /* Ensure images don't exceed their container's width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Prevents unwanted space below images */
+    margin: 10px auto; /* Add margin for spacing */
+    border-radius: 8px; /* Add border radius for rounded corners */
+}
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .show-details-button, .redirect-button {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }/* Your CSS styles here */
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+</head>
+
+<body class="sub_page">
+    <div class="hero_area">
+        <!-- Header starts -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <button class="openbtn" onclick="toggleNav()">☰</button>
+                    <a class="navbar-brand" href="index.html">
+                        <img src="images/Helping Hands.jpeg" alt="">
+                        <span>Helping Hands</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="s-1"> </span>
+                        <span class="s-2"> </span>
+                        <span class="s-3"> </span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                            <ul class="navbar-nav  ">
+                                <li class="nav-item active">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="admindashboard.html"> Home </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="index.html"> Log Out </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-bell fa-lg"></i> <span class="badge badge-pill badge-danger">3</span>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item">Notification 1</a>
+                                            <a class="dropdown-item">Notification 2</a>
+                                            <a class="dropdown-item">Notification 3</a>
+                                        </div>
+                                    </li>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- Header ends -->
+    </div>
+
+    <!-- Sidebar starts -->
+    <div id="mySidebar" class="sidebar">
+        <a href="CreatePostDonor.html">Create Post</a>
+        <a href="ViewPostsDonor.html">View My Posts</a>
+        <a href="ViewFulfilledPostsDonor.html">View My Fulfilled Posts</a>
+        <a href="accountmanagementdonor.html">Account Management</a>
+        <a href="ViewOrganizationDonor.html">View Organizations</a>
+        <a href="ViewOrgPostDonor.html">View Organization Posts</a>
+    </div>
+    <!-- Sidebar ends -->
+
+    <!-- Page content -->
+    <div id="main">
+        <div class="filter-container">
+            <select class="filter-select" id="filterSelect" onchange="updateFilters()">
+                <option value="all">All</option>
+                <option value="Toys">Toys</option>
+                <option value="Food">Food</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Medical">Medical Supplies</option>
+                <option value="School">School Supplies</option>
+                <option value="Blood">Blood Donation</option>
+                <option value="doctor">Medical Case</option>
+                <option value="teaching">Teaching Case</option>
+            </select>
+        </div>
+
+        <div id="additionalFilters"></div>
+
+        <script>
+         function updateFilters() {
+    var selectedCategory = document.getElementById("filterSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+
+        // Example: If the category name is found in the post title, display the card
+        if (selectedCategory === "all" || postTitle.includes(selectedCategory)) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+
+    var additionalFiltersContainer = document.getElementById("additionalFilters");
+
+    // Clear previous filters
+    additionalFiltersContainer.innerHTML = "";
+
+    // Add filters based on selected category
+    if (selectedCategory === "clothes") {
+        additionalFiltersContainer.innerHTML = `
+            <select class="filter-select" id="ageclothesFilterSelect" onchange="filterClothes()">
+                <option value="all">All</option>
+                <option value="infant">Infant</option>
+                <option value="toddler">Toddler</option>
+                <option value="teenage">Teenage</option>
+                <option value="adult">Adult</option>
+                <option value="senior">Senior</option>
+            </select>
+            <select class="filter-select" id="genderFilterSelect" onchange="filterClothes()">
+                <option value="all">All</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="unisex">Unisex</option>
+            </select>
+            <select class="filter-select" id="seasonFilterSelect" onchange="filterClothes()">
+                <option value="all">All</option>
+                <option value="summer">Summer</option>
+                <option value="winter">Winter</option>
+                <option value="spring">Spring</option>
+            </select>
+        `;
+    } else if (selectedCategory === "schoolsupplies") {
+        additionalFiltersContainer.innerHTML = `
+            <select class="filter-select" id="schoolSuppliesFilterSelect" onchange="filterSchoolSupplies()">
+                <option value="all">All</option>
+                <option value="books">Books</option>
+                <option value="stationery">Stationery</option>
+            </select>
+        `;
+    } else if (selectedCategory === "toys") {
+        additionalFiltersContainer.innerHTML = `
+            <select class="filter-select" id="agetoyFilterSelect" onchange="filterToys()">
+                <option value="all">All</option>
+                <option value="infants">Infants</option>
+                <option value="toddlers">Toddlers</option>
+                <option value="teenages">Teenages</option>
+            </select>
+            <select class="filter-select" id="genderFilterSelect" onchange="filterToys()">
+                <option value="all">All</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="unisex">Unisex</option>
+            </select>
+            <select class="filter-select" id="ToyCategoryFilterSelect" onchange="filterToys()">
+                <option value="all">All</option>
+                <option value="boardgames">Board games</option>
+                <option value="stuffedtoys">Stuffed toys</option>
+                <option value="doll">Doll</option>
+                <option value="sports">Sports</option>
+                <option value="cars">Cars</option>
+                <option value="outdoors">Outdoors</option>
+            </select>
+        `;
+    } else if (selectedCategory === "food") {
+        additionalFiltersContainer.innerHTML = `
+            <select class="filter-select" id="foodFilterSelect" onchange="filterFood()">
+                <option value="all">All</option>
+                <option value="fruitsVegetables">Fruits and Vegetables</option>
+                <option value="cannedFoods">Canned Foods</option>
+                <option value="freshMeals">Fresh Meals</option>
+                <option value="bakedGoods">Baked Goods</option>
+            </select>
+        `;
+    } else if (selectedCategory === "medicalsupplies") {
+        additionalFiltersContainer.innerHTML = `
+            <select class="filter-select" id="medicalSuppliesFilterSelect" onchange="filterMedicalSupplies()">
+                <option value="all">All</option>
+                <option value="medicalDevices">Medical Devices</option>
+                <option value="medicalEquipment">Medical Equipment</option>
+                <option value="medication">Medication</option>
+            </select>
+        `;
+
+        // Attach event listener to detect changes in the main category filter
+        document.getElementById("medicalSuppliesFilterSelect").addEventListener("change", function() {
+            let selectedSubCategory = this.value;
+
+            // Check if the selected subcategory is 'medication' and display additional filter
+            if (selectedSubCategory === "medication") {
+                additionalFiltersContainer.innerHTML += `
+                    <select class="filter-select" id="medicationFilterSelect" onchange="filterMedication()">
+                        <option value="all">All</option>
+                        <option value="painkiller">Pain Killer</option>
+                        <option value="diabetes">Diabetes</option>
+                    </select>
+                `;
+            } else {
+                // If not 'medication', remove any existing additional filter
+                let medicationFilterSelect = document.getElementById("medicationFilterSelect");
+                if (medicationFilterSelect) {
+                    medicationFilterSelect.remove();
+                }
+            }
+        });
+    } else if (selectedCategory === "blooddonation") {
+        additionalFiltersContainer.innerHTML = `
+            <select class="filter-select" id="bloodFilterhospitalSelect" onchange="filterBlood()">
+                <option value="all">All</option>
+                <option value="AirSpecialized">Air Specialized Hospital</option>
+                <option value="MercyGeneral">Mercy General Hospital</option>
+                <option value="Andalusia">Andalusia Hospital</option>
+            </select>
+            <select class="filter-select" id="bloodFiltergovornorateSelect" onchange="filterBlood()">
+                <option value="all">All</option>
+                <option value="cairo">Cairo</option>
+                <option value="alexandria">Alexandria</option>
+                <option value="hurghada">Hurghada</option>
+            </select>
+            <select class="filter-select" id="bloodFilterareaSelect" onchange="filterBlood()">
+                <option value="all">All</option>
+                <option value="NewCairo">New Cairo</option>
+                <option value="ElRehab">El Rehab</option>
+                <option value="Maadi">Maadi</option>
+                <option value="Madinty">Madinty</option>
+            </select>
+        `;
+    } else if (selectedCategory === "doctor") {
+        additionalFiltersContainer.innerHTML = `
+            <select class="filter-select" id="SpecialtyFilterSelect" onchange="filterDoctor()">
+                <option value="all">All</option>
+                <option value="obgyn">OBGYN</option>
+                <option value="Ortho">Ortho</option>
+                <option value="dentist">Dentist</option>
+            </select>
+            <select class="filter-select" id="doctorHospitalFilterSelect" onchange="filterDoctor()">
+                <option value="all">All</option>
+                <option value="AirSpecialized">Air Specialized Hospital</option>
+                <option value="MercyGeneral">Mercy General Hospital</option>
+                <option value="Andalusia">Andalusia Hospital</option>
+            </select>
+            <select class="filter-select" id="doctorgovornorateSelect" onchange="filterDoctor()">
+                <option value="all">All</option>
+                <option value="cairo">Cairo</option>
+                <option value="alexandria">Alexandria</option>
+                <option value="hurghada">Hurghada</option>
+            </select>
+            <select class="filter-select" id="doctorFilterareaSelect" onchange="filterDoctor()">
+                <option value="all">All</option>
+                <option value="NewCairo">New Cairo</option>
+                <option value="ElRehab">El Rehab</option>
+                <option value="Maadi">Maadi</option>
+                <option value="Madinty">Madinty</option>
+            </select>
+        `;
+    } else if (selectedCategory === "teaching") {
+        additionalFiltersContainer.innerHTML = `
+            <select class="filter-select" id="subjectFilterSelect" onchange="filterTeacher()">
+                <option value="all">All</option>
+                <option value="Math">Math</option>
+                <option value="Science">Science</option>
+                <option value="English">English</option>
+            </select>
+            <select class="filter-select" id="teachingFiltergovornorateSelect" onchange="filterTeacher()">
+                <option value="all">All</option>
+                <option value="cairo">Cairo</option>
+                <option value="alexandria">Alexandria</option>
+                <option value="hurghada">Hurghada</option>
+            </select>
+            <select class="filter-select" id="teachingFilterareaSelect" onchange="filterTeacher()">
+                <option value="all">All</option>
+                <option value="NewCairo">New Cairo</option>
+                <option value="ElRehab">El Rehab</option>
+                <option value="Maadi">Maadi</option>
+                <option value="Madinty">Madinty</option>
+            </select>
+        `;
+    }
+
+    // Attach event listeners
+    attachEventListeners(selectedCategory);
+}
+
+function attachEventListeners(selectedCategory) {
+    if (selectedCategory === "medicalsupplies") {
+        // Attach event listener to detect changes in the main category filter
+        document.getElementById("medicalSuppliesFilterSelect").addEventListener("change", function() {
+            let selectedSubCategory = this.value;
+
+            // Check if the selected subcategory is 'medication' and display additional filter
+            if (selectedSubCategory === "medication") {
+                additionalFiltersContainer.innerHTML += `
+                    <select class="filter-select" id="medicationFilterSelect" onchange="filterMedication()">
+                        <option value="all">All</option>
+                        <option value="painkiller">Pain Killer</option>
+                        <option value="diabetes">Diabetes</option>
+                    </select>
+                `;
+            } else {
+                // If not 'medication', remove any existing additional filter
+                let medicationFilterSelect = document.getElementById("medicationFilterSelect");
+                if (medicationFilterSelect) {
+                    medicationFilterSelect.remove();
+                }
+            }
+        });
+    } // Add similar blocks for other categories
+}
+// Define filter functions for each category
+// Define filter functions for each category
+function filterClothes() {
+    var selectedAge = document.getElementById("ageclothesFilterSelect").value.toLowerCase();
+    var selectedGender = document.getElementById("genderFilterSelect").value.toLowerCase();
+    var selectedSeason = document.getElementById("seasonFilterSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+        var postDetails = postCard.querySelector(".post-details").textContent.toLowerCase();
+
+        if (postTitle.includes("clothes") &&
+            (selectedAge === "all" || postDetails.includes(selectedAge)) &&
+            (selectedGender === "all" || postDetails.includes(selectedGender)) &&
+            (selectedSeason === "all" || postDetails.includes(selectedSeason))) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}
+
+function filterSchoolSupplies() {
+    var selectedSubCategory = document.getElementById("schoolSuppliesFilterSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+
+        if (postTitle.includes("school supplies") && (selectedSubCategory === "all" || postTitle.includes(selectedSubCategory))) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}
+
+function filterToys() {
+    var selectedAge = document.getElementById("agetoyFilterSelect").value.toLowerCase();
+    var selectedGender = document.getElementById("genderFilterSelect").value.toLowerCase();
+    var selectedCategory = document.getElementById("ToyCategoryFilterSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+        var postDetails = postCard.querySelector(".post-details").textContent.toLowerCase();
+
+        if (postTitle.includes("toys") &&
+            (selectedAge === "all" || postDetails.includes(selectedAge)) &&
+            (selectedGender === "all" || postDetails.includes(selectedGender)) &&
+            (selectedCategory === "all" || postDetails.includes(selectedCategory))) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}
+
+function filterFood() {
+    var selectedSubCategory = document.getElementById("foodFilterSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+
+        if (postTitle.includes("food") && (selectedSubCategory === "all" || postTitle.includes(selectedSubCategory))) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}
+
+function filterMedicalSupplies() {
+    var selectedSubCategory = document.getElementById("medicalSuppliesFilterSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+
+        if (postTitle.includes("medical supplies") && (selectedSubCategory === "all" || postTitle.includes(selectedSubCategory))) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}
+
+function filterBlood() {
+    var selectedHospital = document.getElementById("bloodFilterhospitalSelect").value.toLowerCase();
+    var selectedGovernorate = document.getElementById("bloodFiltergovornorateSelect").value.toLowerCase();
+    var selectedArea = document.getElementById("bloodFilterareaSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+        var postDetails = postCard.querySelector(".post-details").textContent.toLowerCase();
+
+        if (postTitle.includes("blood donation") &&
+            (selectedHospital === "all" || postDetails.includes(selectedHospital)) &&
+            (selectedGovernorate === "all" || postDetails.includes(selectedGovernorate)) &&
+            (selectedArea === "all" || postDetails.includes(selectedArea))) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}
+
+function filterDoctor() {
+    var selectedSpecialty = document.getElementById("SpecialtyFilterSelect").value.toLowerCase();
+    var selectedHospital = document.getElementById("doctorHospitalFilterSelect").value.toLowerCase();
+    var selectedGovernorate = document.getElementById("doctorgovornorateSelect").value.toLowerCase();
+    var selectedArea = document.getElementById("doctorFilterareaSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+        var postDetails = postCard.querySelector(".post-details").textContent.toLowerCase();
+
+        if (postTitle.includes("doctor visit request") &&
+            (selectedSpecialty === "all" || postDetails.includes(selectedSpecialty)) &&
+            (selectedHospital === "all" || postDetails.includes(selectedHospital)) &&
+            (selectedGovernorate === "all" || postDetails.includes(selectedGovernorate)) &&
+            (selectedArea === "all" || postDetails.includes(selectedArea))) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}
+
+function filterTeacher() {
+    var selectedSubject = document.getElementById("subjectFilterSelect").value.toLowerCase();
+    var selectedGovernorate = document.getElementById("teachingFiltergovornorateSelect").value.toLowerCase();
+    var selectedArea = document.getElementById("teachingFilterareaSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+        var postDetails = postCard.querySelector(".post-details").textContent.toLowerCase();
+
+        if (postTitle.includes("teaching request") &&
+            (selectedSubject === "all" || postDetails.includes(selectedSubject)) &&
+            (selectedGovernorate === "all" || postDetails.includes(selectedGovernorate)) &&
+            (selectedArea === "all" || postDetails.includes(selectedArea))) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}
+
+// Initial call to update filters when the page loads
+updateFilters();
+
+        </script>
+    </div>
+    <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search...">
+        <button class="search-button" onclick="search()">Search</button>
+      </div>
+    </div>
+    
+  <div class="posts-container">
+      <!-- Example post cards -->
+      <div class="post-card">
+          <h2 class="post-title">Clothes Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> Shorts<br>
+              <strong>Season:</strong> Winter <br>
+              <strong>Gender:</strong> Male<br>
+              <strong>Quantity :</strong> 30 shorts <br>
+              <strong>Material :</strong> Cotton <br>
+              <strong>Age :</strong> Teenagers <br>
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Clothes Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> Pants<br>
+              <strong>Season:</strong> Summer <br>
+              <strong>Gender:</strong> Female<br>
+              <strong>Quantity :</strong> 20 pants <br>
+              <strong>Material :</strong> Leather <br>
+              <strong>Age :</strong> Adults <br>
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Clothes Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> T-Shirts<br>
+              <strong>Season:</strong> Spring<br>
+              <strong>Gender:</strong> Unisex<br>
+              <strong>Quantity :</strong> 40 T-shirts <br>
+              <strong>Material :</strong> Wool <br>
+              <strong>Age :</strong> Toddlers <br>
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      
+      <div class="post-card">
+          <h2 class="post-title">School Supplies Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> Notebooks and Pencils<br>
+              <strong>Type:</strong> Stationery<br>
+              <strong>Quantity Requested:</strong> 200 Notebooks, 300 Pencils<br>
+              
+              
+
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+
+      <div class="post-card">
+          <h2 class="post-title">School Supplies Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> Books <br>
+              <strong>Author:</strong> Coleen hoover<br>
+              <strong>Type :</strong> Mystery <br>
+              <strong>Language :</strong> English <br>
+              <strong>Type :</strong> 25 books <br>
+              <strong>Summary :</strong> Book talks about a mysterious love story <br>
+
+              
+              <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+
+      <div class="post-card">
+          <h2 class="post-title">School Supplies Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> pens <br>
+              <strong>Type:</strong> Stationery<br>
+              <strong>Quantity Requested:</strong> 250 pens<br>
+              
+             
+
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      
+      <div class="post-card">
+          <h2 class="post-title">Toys Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> Stuffed Animals<br>
+              <strong>Age :</strong> Toddlers <br>
+              <strong>Quantity :</strong> 100<br>
+              <strong>Gender :</strong> Male<br>
+              <strong>Catergory :</strong> stuffed toys<br>
+              
+
+              <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+              
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Toys Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> Legos<br>
+              <strong>Age :</strong> Toddlers <br>
+              <strong>Quantity :</strong> 40<br>
+              <strong>Gender :</strong> Female<br>
+              <strong>Catergory :</strong> board games<br>
+              
+
+              <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+              
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+
+      <div class="post-card">
+          <h2 class="post-title">Toys Donation Request</h2>
+          <p class="post-details">
+              <strong>Item Description:</strong> balls<br>
+              <strong>Age :</strong> Toddlers <br>
+              <strong>Quantity :</strong> 30<br>
+              <strong>Gender :</strong> Unisex<br>
+              <strong>Catergory :</strong> sports<br>
+              
+
+              <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+              
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+
+
+
+      <div class="post-card">
+          <h2 class="post-title">Medical Supplies Donation Request</h2>
+          <p class="post-details">
+              <strong>Device Type:</strong> X-ray machines<br>
+              <strong>Quantity Requested:</strong> 2 X-ray machines<br>
+              <strong>Use:</strong> view broken bones <br>
+              <strong>Category:</strong> medical equipment<br>
+              <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+              
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Medical Supplies Donation Request</h2>
+          <p class="post-details">
+              <strong>Device Type:</strong> MRI machines<br>
+              <strong>Quantity Requested:</strong> 1 MRI machines<br>
+              <strong>Use:</strong> check stomach pain <br>
+              <strong>Category:</strong> medical equipment<br>
+              <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+              
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Medical Supplies Donation Request</h2>
+          <p class="post-details">
+              <strong>Name :</strong> Panadol<br>
+              <strong>Quantity Requested:</strong> 50 boxes<br>
+              <strong>Medical Use:</strong> pain killer <br>
+              <strong>Category:</strong> medication<br>
+
+              <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+              
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+
+
+
+      
+      <div class="post-card">
+          <h2 class="post-title">Blood Donation Request</h2>
+          <p class="post-details">
+              <strong>Name of Patient:</strong> Mohamed Hassanien<br>
+              <strong>Blood Type:</strong> O-<br>
+              <strong>Hospital:</strong> Mercy General Hospital<br>
+              <strong>Hospital Area:</strong> New cairo<br>
+              <strong>Location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Blood Donation Request</h2>
+          <p class="post-details">
+              <strong>Name of Patient:</strong> Mohamed Hassanien<br>
+              <strong>Blood Type:</strong> O-<br>
+              <strong>Hospital:</strong> Mercy General Hospital<br>
+              <strong>Hospital Area:</strong> New cairo<br>
+              <strong>Location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Blood Donation Request</h2>
+          <p class="post-details">
+              <strong>Name of Patient:</strong> Ziad Amr<br>
+              <strong>Blood Type:</strong> A-<br>
+              <strong>Hospital:</strong> Air Specialized Hospital<br>
+              <strong>Hospital Area:</strong> New cairo<br>
+              <strong>Location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+
+
+      <div class="post-card">
+          <h2 class="post-title">Teaching post Request</h2>
+          <p class="post-details">
+              <strong>Subject:</strong> English<br>
+              <strong>Area:</strong> El Rehab<br>
+              <strong>Number of students:</strong> 45 <br>
+              <strong>Governorate:</strong>Cairo <br>
+              <strong>School location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Teaching post Request</h2>
+          <p class="post-details">
+              <strong>Subject:</strong> Math<br>
+              <strong>Area:</strong> New Cairo<br>
+              <strong>Number of students:</strong> 55 <br>
+              <strong>Governorate:</strong>Cairo <br>
+              <strong>School location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Teaching post Request</h2>
+          <p class="post-details">
+              <strong>Subject:</strong> Science<br>
+              <strong>Area:</strong> Madinaty<br>
+              <strong>Number of students:</strong> 200<br>
+              <strong>Governorate:</strong>Cairo <br>
+              <strong>School location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+
+
+
+
+
+
+
+
+      <div class="post-card">
+          <h2 class="post-title">Doctor visit Request</h2>
+          <p class="post-details">
+              <strong>Specialty:</strong> OBGYN<br>
+              <strong>Hospital name:</strong> El Shifa<br>
+              <strong>Area:</strong> New Cairo<br>
+              <strong>Governorate:</strong> Cairo<br>
+              <strong>Patient name:</strong> Aya Walid<br>
+              <strong>age:</strong> 25<br>
+              <strong>gender:</strong> female<br>
+              <strong>weight:</strong> 50 kg<br>
+              <strong>Case Description:</strong> Pregnancy checkup <br>
+              <strong>Location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Doctor visit Request</h2>
+          <p class="post-details">
+              <strong>Specialty:</strong> Ortho<br>
+              <strong>Hospital name:</strong> Air specialized Hospital<br>
+              <strong>Area:</strong> New Cairo<br>
+              <strong>Governorate:</strong> Cairo<br>
+              <strong>Patient name:</strong> Sama Tamer<br>
+              <strong>age:</strong> 55<br>
+              <strong>gender:</strong> female<br>
+              <strong>weight:</strong> 70 kg<br>
+              <strong>Case Description:</strong> Broken hand <br>
+              <strong>Location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Doctor visit Request</h2>
+          <p class="post-details">
+              <strong>Specialty:</strong> Dentist<br>
+              <strong>Hospital name:</strong>Manchester Hospital <br>
+              <strong>Area:</strong> Old trafford<br>
+              <strong>Governorate:</strong> Manchester<br>
+              <strong>Patient name:</strong> Omar Ahmed<br>
+              <strong>age:</strong> 35<br>
+              <strong>gender:</strong> male<br>
+              <strong>weight:</strong> 100 kg<br>
+              <strong>Case Description:</strong>  Wisdom Teeth removal <br>
+              <strong>Location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                  <div class="map_container" >
+                    <div class="map-responsive" >
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+              </div>    
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+
+      
+      
+      <div class="post-card">
+          <h2 class="post-title">Food Request</h2>
+          <p class="post-details">
+              <strong>Item:</strong> Mango<br>
+              <strong>Quantity:</strong> 20 kilo<br>
+              <strong>Catergory:</strong> Fruit<br>
+              <strong>Exp Date:</strong> 23/2/2024<br>
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      <div class="post-card">
+          <h2 class="post-title">Food Request</h2>
+          <p class="post-details">
+              <strong>Item:</strong> Cucumbers<br>
+              <strong>Quantity:</strong> 40 kilo<br>
+              <strong>Catergory:</strong> Vegetables<br>
+              <strong>Exp Date:</strong> 23/3/2025<br>
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      
+      <div class="post-card">
+          <h2 class="post-title">Food Request</h2>
+          <p class="post-details">
+              <strong>Item:</strong> bread<br>
+              <strong>Quantity:</strong> 22<br>
+              <strong>Catergory:</strong> Baked goods<br>
+              <strong>Exp Date:</strong> 23/4/2025<br>
+          </p>
+          <div class="button-container">
+              <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+              <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+          </div>
+      </div>
+      
+      
+      <script>
+       
+       function toggleDetails(button) {
+  var details = button.parentElement.parentElement.querySelector('.post-details'); // Get the details element
+  if (details.style.display === 'none' || details.style.display === '') {
+      details.style.display = 'block'; // Show details
+      button.textContent = 'Hide Details'; // Change button text
+  } else {
+      details.style.display = 'none'; // Hide details
+      button.textContent = 'Show Details'; // Change button text
+  }
+}
+
+function toggleDetailsmap(button) {
+  var details = button.parentElement.parentElement.querySelector('.post-details'); // Get the details element
+  var mapContainer = button.parentElement.parentElement.querySelector('.col-md-6#wmap'); // Get the map container
+  if (details.style.display === 'none' || details.style.display === '') {
+      details.style.display = 'block'; // Show details
+      mapContainer.style.display = 'block'; // Show map
+      button.textContent = 'Hide Details'; // Change button text
+  } else {
+      details.style.display = 'none'; // Hide details
+      mapContainer.style.display = 'none'; // Hide map
+      button.textContent = 'Show Details'; // Change button text back to 'Show Details'
+  }
+  
+}
+
+
+      
+          function redirectToPage() {
+              // Redirect to another page
+              window.location.href = 'DonorFullfillDonationPost.html'; // Replace 'DonorFullfillDonationPost.html' with your desired URL
+          }
+      /*  function updateFilters() {
+    var selectedCategory = document.getElementById("filterSelect").value.toLowerCase();
+    var postCards = document.getElementsByClassName("post-card");
+
+    for (var i = 0; i < postCards.length; i++) {
+        var postCard = postCards[i];
+        var postTitle = postCard.querySelector(".post-title").textContent.toLowerCase();
+
+        // Example: If the category name is found in the post title, display the card
+        if (selectedCategory === "all" || postTitle.includes(selectedCategory)) {
+            postCard.style.display = "block";
+        } else {
+            postCard.style.display = "none";
+        }
+    }
+}*/
+
+
+
+    
+      </script>
+      
+  </div>
+  
+    <div id="searchResults">
+      <!-- Search results will be displayed here -->
+    </div>
+ 
+  
+
+</body>
+
+</html>

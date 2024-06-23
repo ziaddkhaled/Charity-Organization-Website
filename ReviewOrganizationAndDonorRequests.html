@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Organization/Donor Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            min-height: calc(89.5vh - 60px);
+            width: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #D4F1F4;
+            overflow-x: hidden;
+            transition: 0s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #0f6b7c;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #0f6b7c;
+        }
+
+        .sidebar .closebtn {
+            position: sticky;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            left: 20px;
+            margin-left: 50px;
+        }
+
+        .openbtn {
+            font-size: 30px;
+            /* Increase the font size as desired */
+            cursor: pointer;
+            background-color: #D4F1F4;
+            color: #0f6b7c;
+            padding: 10px 15px;
+            border: none;
+            position: Sticky;
+            left: 0px;
+            top: auto;
+            z-index: 9999;
+            /* Ensure the toggle button is above other elements */
+        }
+
+        .openbtn:hover {
+            background-color: #D4F1F4;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+        }
+
+        .header_section {
+            position: relative;
+            background-color: #0f6b7c;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            color: white;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            /* Adjust spacing between rows */
+        }
+
+        .square-button {
+            width: 350px;
+            /* Adjust button width as needed */
+            height: 250px;
+            /* Set height equal to width for square shape */
+            background-color: #fff;
+            /* Button background color */
+            color: #000000;
+            /* Button text color */
+            border: none;
+            /* Remove button border */
+            border-radius: 10px;
+            /* Button border radius */
+            font-size: 18px;
+            /* Button text size */
+            font-weight: bold;
+            /* Button text weight */
+            cursor: pointer;
+            /* Change cursor to pointer on hover */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            /* Add shadow */
+            margin: 10px;
+            /* Adjust spacing between buttons */
+        }
+
+        .square-button:hover {
+            background-color: #6A679E;
+            /* Change background color on hover */
+        }
+
+        .request {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accept-button,
+        .reject-button,
+        .show-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .accept-button:hover {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .reject-button:hover {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .show-button:hover {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .popup-content {
+            background-color: white;
+            width: 50%;
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body class="sub_page">
+
+    <!-- Header Section -->
+    <header class="header_section">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <button class="openbtn" onclick="toggleNav()" style="margin-left: -150px;">☰</button>
+                <!-- Sidebar toggle button -->
+
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/Helping Hands.jpeg" alt="" style="margin-left: 100px;">
+                    <span style="font-weight: 2000;">
+                        Helping Hands
+                    </span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="s-1"> </span>
+                    <span class="s-2"> </span>
+                    <span class="s-3"> </span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                        <ul class="navbar-nav  ">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="homepage.html"> Home </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html"> Log Out </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-bell fa-lg"></i> <span class="badge badge-pill badge-danger">3</span>
+                                    <!-- Example: display number of notifications -->
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item">Notification 1</a>
+                                    <a class="dropdown-item">Notification 2</a>
+                                    <a class="dropdown-item">Notification 3</a>
+                                    <!-- Add more notifications as needed -->
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- End Header Section -->
+
+    <!-- Sidebar Section -->
+    <div id="mySidebar" class="sidebar" style="width: 0px; height: 1000px; position: absolute;">
+
+        <a href=" #">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <a href="#">Link 4</a>
+    </div>
+    <!-- End Sidebar Section -->
+
+    <!-- Page content -->
+    <div id="main">
+        <div class="button-row">
+            <button class="square-button" onclick="toggleRequests('donors')">View Donor Requests</button>
+            <button class="square-button" onclick="toggleRequests('organizations')">View Organization Requests</button>
+        </div>
+
+        <!-- Request Lists -->
+        <div id="request-list"></div>
+    </div>
+    <!-- End Page content -->
+
+    <!-- Popup -->
+    <div id="request-popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Account Details</h2>
+            <p id="name"></p>
+            <p id="age"></p>
+            <p id="address"></p>
+            <p id="type"></p>
+            <p id="contact"></p>
+            <p id="governorate"></p>
+        </div>
+    </div>
+    <!-- End Popup -->
+
+    <footer class="container-fluid footer_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-9 mx-auto">
+                    <p>
+                        &copy; 2024 Software Project
+                        <a href="https://html.design/">Helping Hands Charity Organization</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dummy data
+        var donorRequestsData = [
+            { name: "John Doe", age: 30, address: "123 Street, City", type: "Individual", contact: "1234567890", governorate: "Governorate 1" },
+            { name: "Jane Smith", age: 25, address: "456 Avenue, Town", type: "Organization", contact: "9876543210", governorate: "Governorate 2" },
+            { name: "Alice Johnson", age: 35, address: "789 Road, Village", type: "Individual", contact: "5554443333", governorate: "Governorate 3" }
+        ];
+
+        var organizationRequestsData = [
+            { name: "Resala", age: 40, address: "321 Lane, Suburb", type: "Organization", contact: "2223334444", governorate: "Governorate 4" },
+            { name: "Orman", age: 45, address: "654 Court, County", type: "Organization", contact: "7778889999", governorate: "Governorate 5" },
+            { name: "UNICEF", age: 50, address: "987 Park, State", type: "Organization", contact: "1112223333", governorate: "Governorate 6" }
+        ];
+
+        // Function to toggle between donor and organization requests
+        function toggleRequests(type) {
+            if (type === 'donors') {
+                displayRequests(donorRequestsData);
+            } else if (type === 'organizations') {
+                displayRequests(organizationRequestsData);
+            }
+        }
+
+        // Function to display requests
+        function displayRequests(data) {
+            var requestList = document.getElementById('request-list');
+            requestList.innerHTML = ''; // Clear previous content
+
+            data.forEach((request, index) => {
+                var requestDiv = document.createElement('div');
+                requestDiv.className = 'request';
+
+                var name = document.createElement('h3');
+                name.textContent = request.name;
+                requestDiv.appendChild(name);
+
+                var buttonsDiv = document.createElement('div');
+                buttonsDiv.className = 'buttons';
+
+                var acceptButton = document.createElement('button');
+                acceptButton.textContent = 'Accept';
+                acceptButton.className = 'accept-button';
+                acceptButton.addEventListener('click', () => removeRequest(index, 'accepted'));
+                buttonsDiv.appendChild(acceptButton);
+
+                var rejectButton = document.createElement('button');
+                rejectButton.textContent = 'Reject';
+                rejectButton.className = 'reject-button';
+                rejectButton.addEventListener('click', () => removeRequest(index, 'rejected'));
+                buttonsDiv.appendChild(rejectButton);
+
+                var showButton = document.createElement('button');
+                showButton.textContent = 'Show Account';
+                showButton.className = 'show-button';
+                showButton.addEventListener('click', () => showRequestDetails(request));
+                buttonsDiv.appendChild(showButton);
+
+                requestDiv.appendChild(buttonsDiv);
+
+                requestList.appendChild(requestDiv);
+            });
+        }
+
+        // Function to remove a request
+        function removeRequest(index, status) {
+            var message;
+            if (status === 'accepted') {
+                message = 'Request Accepted';
+            } else {
+                message = 'Request Rejected';
+            }
+            // Remove the request from the respective data array
+            donorRequestsData.splice(index, 1);
+            organizationRequestsData.splice(index, 1);
+            // Redisplay the requests
+            toggleRequests('donors');
+            alert(message);
+        }
+
+        // Function to show request details in popup
+        function showRequestDetails(request) {
+            document.getElementById('name').textContent = 'Name: ' + request.name;
+            document.getElementById('age').textContent = 'Age: ' + request.age;
+            document.getElementById('address').textContent = 'Address: ' + request.address;
+            document.getElementById('type').textContent = 'Type of Donor: ' + request.type;
+            document.getElementById('contact').textContent = 'Contact Number: ' + request.contact;
+            document.getElementById('governorate').textContent = 'Governorate: ' + request.governorate;
+
+            // Display the popup
+            document.getElementById('request-popup').style.display = 'block';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('request-popup').style.display = 'none';
+        }
+
+        // Initial display of donor requests
+        displayRequests(donorRequestsData);
+    </script>
+</body>
+
+</html>

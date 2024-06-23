@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0; 
+    }
+
+    body {
+        background: linear-gradient(90deg, #D4F1F4, #75E6DA);      
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .dashboard {
+        background: linear-gradient(90deg, #05445E, #189AB4);       
+        position: relative;  
+        height: 600px;
+        width: 1000px;  /* Adjusted width */  
+        box-shadow: 0px 0px 24px #5C5696;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .dashboard__header {
+        background: #7E7BB9;
+        color: silver; /* Adjusted color */
+        padding: 20px;
+        text-align: left; /* Adjusted alignment */
+        font-size: 24px;
+        font-weight: bold;
+        border-bottom: 2px solid #5C5696;
+        position: relative;
+    }
+
+    .dashboard__back-btn {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #FFF;
+        cursor: pointer;
+        transition: background-color 0.3s; /* Added transition */
+        padding: 5px 10px; /* Added padding for better click area */
+        border-radius: 5px; /* Added border radius for better appearance */
+    }
+
+    .dashboard__back-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Change background color on hover */
+    }
+
+    .dashboard__title {
+        margin-left: 100px; /* Adjusted margin */
+        margin-right: 50px; /* Additional margin */
+        font-size: 36px; /* Increased font size */
+        font-weight: bold; /* Made it bold */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Added text shadow */
+    }
+
+    .dashboard__content {
+        z-index: 1;
+        position: relative;  
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: 40px;
+    }
+
+    .dashboard__card {
+        background-color: #FFF;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        width: calc(50% - 20px);
+        max-width: 400px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        transform: translateY(-5px); /* Adjusted vertical position */
+    }
+
+    .dashboard__icon {
+        font-size: 24px;
+        color: #7875B5;
+        margin-right: 20px;
+    }
+
+    .dashboard__text {
+        font-size: 18px;
+        color: #333;
+    }
+
+    /* Add hover effect */
+    .dashboard__card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Add hover effect to icon */
+    .dashboard__card:hover .dashboard__icon {
+        color: #4C489D;
+    }
+    
+    /* Add the styles from the login page */
+    .screen__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        clip-path: inset(0 0 0 0);
+    }
+
+    .screen_background_shape {
+        transform: rotate(45deg);
+        position: absolute;
+    }
+
+    .screen_background_shape1 {
+        height: 520px;
+        width: 520px;
+        background: #FFF;
+        top: -50px;
+        right: 120px;
+        border-radius: 0 72px 0 0;
+    }
+
+    .screen_background_shape2 {
+        height: 220px;
+        width: 220px;
+        background: #6C63AC;
+        top: -172px;
+        right: 0;
+        border-radius: 32px;
+    }
+
+    .screen_background_shape3 {
+        height: 540px;
+        width: 190px;
+        background: linear-gradient(270deg, #05445E, #6A679E);
+        top: -24px;
+        right: 0;
+        border-radius: 32px;
+    }
+
+    .screen_background_shape4 {
+        height: 400px;
+        width: 200px;
+        background: #7E7BB9;
+        top: 420px;
+        right: 50px;
+        border-radius: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="dashboard">
+      <div class="dashboard__header">
+        <button class="dashboard__back-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Back</button>
+        <span class="dashboard__title">Admin Dashboard</span>
+      </div>
+      <div class="dashboard__content">
+        <div class="dashboard__card" id="organizationDonorLists">
+          <i class="dashboard__icon fas fa-users"></i>
+          <span class="dashboard__text">View Organization and Donor Lists</span>
+        </div>
+        
+        <div class="dashboard__card" id="manageRequests">
+          <i class="dashboard__icon fas fa-clipboard-check"></i>
+          <span class="dashboard__text">Manage Organization/Donor Requests</span>
+        </div>
+        
+        <div class="dashboard__card" id="passwordManagement">
+          <i class="dashboard__icon fas fa-key"></i>
+          <span class="dashboard__text">Change Password</span>
+        </div>
+        
+        <div class="dashboard__card" id="reviewSubmissions">
+          <i class="dashboard__icon fas fa-tasks"></i>
+          <span class="dashboard__text">Review Organization and Donor Submissions</span>
+        </div>
+      </div>
+      <!-- Add the login page background shapes -->
+      <div class="screen__background">
+        <span class="screen_background_shape screen_background_shape4"></span>
+        <span class="screen_background_shape screen_background_shape3"></span>
+        <span class="screen_background_shape screen_background_shape2"></span>
+        <span class="screen_background_shape screen_background_shape1"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Handle click event for "View Organization and Donor Lists" card
+        document.getElementById("organizationDonorLists").addEventListener("click", function() {
+            window.location.href = "ViewOrganizationsAndDonors.html"; // Redirect to page1.html
+        });
+
+        // Handle click event for "Manage Organization and Donor Requests" card
+        document.getElementById("manageRequests").addEventListener("click", function() {
+            window.location.href = "ReviewOrganizationAndDonorRequests.html"; // Redirect to page2.html
+        });
+
+        // Handle click event for "Account Management" card
+        document.getElementById("passwordManagement").addEventListener("click", function() {
+            window.location.href = "PasswordChanging.html"; // Redirect to page3.html
+        });
+
+        // Handle click event for "Review Organization and Donor Submissions" card
+        document.getElementById("reviewSubmissions").addEventListener("click", function() {
+            window.location.href = "page4.html"; // Redirect to page4.html
+        });
+    });
+  </script>
+</body>
+</html>

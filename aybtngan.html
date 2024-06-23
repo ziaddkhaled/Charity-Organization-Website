@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            min-height: calc(89.5vh - 60px);
+            width: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #D4F1F4;
+            overflow-x: hidden;
+            transition: 0s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #0f6b7c;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #0f6b7c;
+        }
+
+        .sidebar .closebtn {
+            position: sticky;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            left: 20px;
+            margin-left: 50px;
+        }
+
+        .openbtn {
+            font-size: 30px;
+            /* Increase the font size as desired */
+            cursor: pointer;
+            background-color: #D4F1F4;
+            color: #0f6b7c;
+            padding: 10px 15px;
+            border: none;
+            position: Sticky;
+            left: 0px;
+            top: auto;
+            z-index: 9999;
+            /* Ensure the toggle button is above other elements */
+        }
+        
+    .post-details {
+        display: none;
+    }
+
+
+
+        .openbtn:hover {
+            background-color: #D4F1F4;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+        }
+
+        .header_section {
+            position: relative;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+            /* Adjust margin to avoid overlap */
+        }
+
+        .logo {
+            margin-right: 10px;
+            max-width: 50px;
+            /* Limit the logo size */
+            height: auto;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            /* Maintain the font size of the title */
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            /* Adjust spacing between rows */
+        }
+
+        .square-button {
+            width: 350px;
+            /* Adjust button width as needed */
+            height: 250px;
+            /* Set height equal to width for square shape */
+            background-color: #fff;
+            /* Button background color */
+            color: #000000;
+            /* Button text color */
+            border: none;
+            /* Remove button border */
+            border-radius: 10px;
+            /* Button border radius */
+            font-size: 18px;
+            /* Button text size */
+            font-weight: bold;
+            /* Button text weight */
+            cursor: pointer;
+            /* Change cursor to pointer on hover */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            /* Add shadow */
+            margin: 10px;
+            /* Adjust spacing between buttons */
+        }
+
+        .square-button:hover {
+            background-color: #6A679E;
+            /* Change background color on hover */
+        }
+        .search-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-left: 100px;
+    }
+
+    .search-input {
+      width: 300px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .search-button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      background-color:   #D4F1F4;
+      color:#032d40;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .filter-container {
+      display: flex;
+      height: 50px;
+      justify-content: center;
+      margin-top: 20px;
+      margin-left: 500px;
+    }
+
+    .filter-select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* CSS for the list items */
+    .item-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .item {
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-radius: 5px;
+    }
+    .post-card {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .post-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .post-content {
+        font-size: 16px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .show-details-button, .redirect-button {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+</head>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+        <!-- header  starts -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <button class="openbtn" onclick="toggleNav()">☰</button> <!-- Sidebar toggle button -->
+
+                    <a class="navbar-brand" href="index.html">
+                        <img src="images/Helping Hands.jpeg" alt="">
+                        <span>
+                            Helping Hands
+                        </span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="s-1"> </span>
+                        <span class="s-2"> </span>
+                        <span class="s-3"> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                            <ul class="navbar-nav  ">
+                                <li class="nav-item active">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="admindashboard.html"> Home </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html"> Log Out </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-bell fa-lg"></i> <span class="badge badge-pill badge-danger">3</span>
+                                        <!-- Example: display number of notifications -->
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item">Notification 1</a>
+                                        <a class="dropdown-item">Notification 2</a>
+                                        <a class="dropdown-item">Notification 3</a>
+                                        <!-- Add more notifications as needed -->
+                                    </div>
+                                </li>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
+    </div>
+
+    <!-- sidebar section starts -->
+    <div id="mySidebar" class="sidebar">
+    
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <a href="#">Link 4</a>
+    </div>
+    <!-- end sidebar section -->
+
+    <!-- Page content -->
+    <div id="main">
+    <div class="filter-container">
+        <select class="filter-select" id="filterSelect" onchange="filterItems()">
+          <option value="all">All</option>
+          <option value="Tag1">Tag 1</option>
+          <option value="Tag2">Tag 2</option>
+          <option value="Tag3">Tag 3</option>
+          <option value="Tag4">Tag 4</option>
+          <option value="Tag5">Tag 5</option>
+          
+        </select>
+        <div class="search-container">
+          <input type="text" class="search-input" id="searchInput" placeholder="Search...">
+          <button class="search-button" onclick="search()">Search</button>
+        </div>
+      </div>
+      
+    <div class="posts-container">
+        <!-- Example post cards -->
+        <div class="post-card">
+            <h2 class="post-title">Clothing Donation Request</h2>
+            <p class="post-details">
+                <strong>Item Description:</strong> <br>
+                <strong>Size:</strong> <br>
+                <strong>Gender:</strong> <br>
+                <strong>Quantity Requested:</strong> <br>
+            </p>
+            <div class="button-container">
+                <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+                <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+            </div>
+        </div>
+        
+        <div class="post-card">
+            <h2 class="post-title">School Supplies Donation Request</h2>
+            <p class="post-details">
+                <strong>Item Description:</strong> Notebooks and Pencils<br>
+                <strong>Type:</strong> Stationery<br>
+                <strong>Quantity Requested:</strong> 200 Notebooks, 300 Pencils<br>
+                <strong>Grade:</strong> Bright Minds Elementary School<br>
+                <strong>Type of Book:</strong> Seattle, WA<br>
+                <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+
+            </p>
+            <div class="button-container">
+                <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+                <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+            </div>
+        </div>
+        
+        <div class="post-card">
+            <h2 class="post-title">Toy Donation Request</h2>
+            <p class="post-details">
+                <strong>Item Description:</strong> Stuffed Animals<br>
+                <strong>Age Group:</strong> Toddlers (1-3 years)<br>
+                <strong>Quantity Requested:</strong> 100<br>
+                <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+                
+            </p>
+            <div class="button-container">
+                <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+                <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+            </div>
+        </div>
+        
+        <div class="post-card">
+            <h2 class="post-title">Medical Supplies Donation Request</h2>
+            <p class="post-details">
+                <strong>Item Description:</strong> Bandages and Gauze<br>
+                <strong>Quantity Requested:</strong> 200 Bandages, 150 Rolls of Gauze<br>
+                <img src="path_to_your_image.jpg" alt="Clothing Donation Image">
+                
+            </p>
+            <div class="button-container">
+                <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+                <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+            </div>
+        </div>
+        
+        <div class="post-card">
+            <h2 class="post-title">Blood Donation Request</h2>
+            <p class="post-details">
+                <strong>Blood Type:</strong> O-<br>
+                <strong>Quantity Requested:</strong> 200 Bandages, 150 Rolls of Gauze<br>
+                <strong>Hospital:</strong> Mercy General Hospital<br>
+                <strong>Location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                    <div class="map_container" >
+                      <div class="map-responsive" >
+                        <iframe
+                          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                          width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                          allowfullscreen></iframe>
+                      </div>
+                    </div>
+                </div>    
+            </p>
+            <div class="button-container">
+                <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+                <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+            </div>
+        </div>
+        <div class="post-card">
+            <h2 class="post-title">Teaching post Request</h2>
+            <p class="post-details">
+                <strong>Subject:</strong> Bandages and Gauze<br>
+                <strong>Quantity Requested:</strong> 200 Bandages, 150 Rolls of Gauze<br>
+                <strong>Grade:</strong> Bandages and Gauze<br>
+                <strong>Date and time:</strong> <br>
+                <strong>School name:</strong> Bandages and Gauze<br>
+                <strong>School location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                    <div class="map_container" >
+                      <div class="map-responsive" >
+                        <iframe
+                          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                          width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                          allowfullscreen></iframe>
+                      </div>
+                    </div>
+                </div>    
+
+            </p>
+            <div class="button-container">
+                <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+                <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+            </div>
+        </div>
+        <div class="post-card">
+            <h2 class="post-title">Doctor visit Request</h2>
+            <p class="post-details">
+                <strong>Specialty:</strong> Bandages and Gauze<br>
+                <strong>Hospital name:</strong> 200 Bandages, 150 Rolls of Gauze<br>
+                <strong>Date:</strong>
+                <strong>Location:</strong> <div class="col-md-6" id="wmap" style="display: none;">
+                    <div class="map_container" >
+                      <div class="map-responsive" >
+                        <iframe
+                          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&q=German+University+in+Cairo"
+                          width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
+                          allowfullscreen></iframe>
+                      </div>
+                    </div>
+                </div>    
+            </p>
+            <div class="button-container">
+                <button class="show-details-button" onclick="toggleDetailsmap(this)">Show Details</button>
+                <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+            </div>
+        </div>
+        <div class="post-card">
+            <h2 class="post-title">Food Request</h2>
+            <p class="post-details">
+                <strong>Item:</strong> Bandages and Gauze<br>
+                <strong>Quantity:</strong> 200 Bandages, 150 Rolls of Gauze<br>
+                <strong>Exp Date:</strong> Bandages and Gauze<br>
+            </p>
+            <div class="button-container">
+                <button class="show-details-button" onclick="toggleDetails(this)">Show Details</button>
+                <button class="redirect-button" onclick="redirectToPage()">Redirect</button>
+            </div>
+        </div>
+        
+        <script>
+         
+         function toggleDetails(button) {
+    var details = button.parentElement.parentElement.querySelector('.post-details'); // Get the details element
+    if (details.style.display === 'none' || details.style.display === '') {
+        details.style.display = 'block'; // Show details
+        button.textContent = 'Hide Details'; // Change button text
+    } else {
+        details.style.display = 'none'; // Hide details
+        button.textContent = 'Show Details'; // Change button text
+    }
+}
+
+function toggleDetailsmap(button) {
+    var details = button.parentElement.parentElement.querySelector('.post-details'); // Get the details element
+    var mapContainer = button.parentElement.parentElement.querySelector('.col-md-6#wmap'); // Get the map container
+    if (details.style.display === 'none' || details.style.display === '') {
+        details.style.display = 'block'; // Show details
+        mapContainer.style.display = 'block'; // Show map
+        button.textContent = 'Hide Details'; // Change button text
+    } else {
+        details.style.display = 'none'; // Hide details
+        mapContainer.style.display = 'none'; // Hide map
+        button.textContent = 'Show Details'; // Change button text back to 'Show Details'
+    }
+    
+  }
+
+
+        
+            function redirectToPage() {
+                // Redirect to another page
+                window.location.href = 'DonorFullfillDonationPost.html'; // Replace 'DonorFullfillDonationPost.html' with your desired URL
+            }
+        </script>
+        
+    </div>
+    
+      <div id="searchResults">
+        <!-- Search results will be displayed here -->
+      </div>
+   
+    
+      <script>
+  function filterItems() {
+    // Get the selected filter value
+    var filterValue = document.getElementById('filterSelect').value;
+
+    // Get all card elements
+    var cards = document.querySelectorAll('.post-card');
+
+    // Loop through each card and check if it matches the selected filter
+    cards.forEach(function(card) {
+        var tags = card.querySelector('.post-tags').textContent.toLowerCase();
+
+        if (filterValue === 'all' || tags.includes(filterValue.toLowerCase())) {
+            // If the card matches the selected filter or 'All', display it
+            card.style.display = 'block';
+        } else {
+            // If the card does not match the selected filter, hide it
+            card.style.display = 'none';
+        }
+    });
+}
+
+
+      </script>
+      </div>
+    
+        
+    <!-- end Page content -->
+
+    <section class="info_section layout_padding" id="info_section">
+        <div class="container">
+            <div class="info_contact">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/location-white.png" alt="">
+                            <span>
+                                Gamal Abdel Nasser, New Cairo 1, Cairo Governorate, Egypt
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/telephone-white.png" alt="">
+                            <span>
+                                Call : +01212777100
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/envelope-white.png" alt="">
+                            <span>
+                                helping-hands@gmail.com
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="info_form">
+                        <form action="">
+                            <input type="text" placeholder="Enter your email">
+                            <button>
+                                subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="info_social">
+                        <div>
+                            <a href="">
+                                <img src="images/fb.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/twitter.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/linkedin.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/instagram.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- end info section -->
+
+    <footer class="container-fluid footer_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-9 mx-auto">
+                    <p>
+                        &copy; 2024 Software Project
+                        <a href="https://html.design/">Helping Hands Charity Organization</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleNav() {
+            var sidebar = document.getElementById("mySidebar");
+            var main = document.getElementById("main");
+            if (sidebar.style.width === "200px") {
+                sidebar.style.width = "0";
+                main.style.marginLeft = "0";
+            } else {
+                sidebar.style.width = "200px";
+                main.style.marginLeft = "200px";
+            }
+        }
+    </script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/script.js"></script> <!-- Add this line for JavaScript -->
+
+</body>
+
+</html>

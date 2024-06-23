@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Donor Dashboard</title>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(90deg, #D4F1F4, #75E6DA);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .dashboard {
+            background: linear-gradient(90deg, #05445E, #189AB4);
+            position: relative;
+            height: 600px;
+            width: 1000px;
+            box-shadow: 0px 0px 24px #5C5696;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .dashboard__header {
+            background: #7E7BB9;
+            color: silver;
+            padding: 20px;
+            text-align: left;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 2px solid #5C5696;
+            position: relative;
+        }
+
+        .dashboard__back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #FFF;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .dashboard__back-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dashboard__title {
+            margin-left: 100px;
+            margin-right: 50px;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard__content {
+            z-index: 1;
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 40px;
+        }
+
+        .dashboard__card {
+            background-color: #FFF;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            width: calc(50% - 20px);
+            max-width: 400px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            transform: translateY(-5px);
+        }
+
+        .dashboard__icon {
+            font-size: 24px;
+            color: #7875B5;
+            margin-right: 20px;
+        }
+
+        .dashboard__text {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .dashboard__card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard__card:hover .dashboard__icon {
+            color: #4C489D;
+        }
+
+        .screen__background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            clip-path: inset(0 0 0 0);
+        }
+
+        .screen_background_shape {
+            transform: rotate(45deg);
+            position: absolute;
+        }
+
+        .screen_background_shape1 {
+            height: 520px;
+            width: 520px;
+            background: #FFF;
+            top: -50px;
+            right: 120px;
+            border-radius: 0 72px 0 0;
+        }
+
+        .screen_background_shape2 {
+            height: 220px;
+            width: 220px;
+            background: #6C63AC;
+            top: -172px;
+            right: 0;
+            border-radius: 32px;
+        }
+
+        .screen_background_shape3 {
+            height: 540px;
+            width: 190px;
+            background: linear-gradient(270deg, #05445E, #6A679E);
+            top: -24px;
+            right: 0;
+            border-radius: 32px;
+        }
+
+        .screen_background_shape4 {
+            height: 400px;
+            width: 200px;
+            background: #7E7BB9;
+            top: 420px;
+            right: 50px;
+            border-radius: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <div class="dashboard__header">
+                <button class="dashboard__back-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Back</button>
+                <span class="dashboard__title">Donor Dashboard</span>
+            </div>
+            <div class="dashboard__content">
+                <div class="dashboard__card" id="viewDonationRequests">
+                    <i class="dashboard__icon fas fa-hand-holding-heart"></i>
+                    <span class="dashboard__text">View Donation Requests</span>
+                </div>
+
+                <div class="dashboard__card" id="selectDonationItems">
+                    <i class="dashboard__icon fas fa-shopping-basket"></i>
+                    <span class="dashboard__text">Select Donation Items</span>
+                </div>
+
+                <div class="dashboard__card" id="schedulePickup">
+                    <i class="dashboard__icon fas fa-calendar-alt"></i>
+                    <span class="dashboard__text">Schedule Pickup</span>
+                </div>
+
+                <div class="dashboard__card" id="viewEstimatedTime">
+                    <i class="dashboard__icon fas fa-clock"></i>
+                    <span class="dashboard__text">View My Donation Details</span>
+                </div>
+
+                <div class="dashboard__card" id="viewRegisteredOrganization">
+                    <i class="dashboard__icon fas fa-registered"></i>
+                    <span class="dashboard__text">View Registered Organizations</span>
+                </div>
+
+                <div class="dashboard__card" id="updateAccountInfo">
+                    <i class="dashboard__icon fas fa-user-cog"></i>
+                    <span class="dashboard__text">Manage Account Information</span>
+                </div>
+
+            </div>
+            <!-- Add the login page background shapes -->
+            <div class="screen__background">
+                <span class="screen_background_shape screen_background_shape4"></span>
+                <span class="screen_background_shape screen_background_shape3"></span>
+                <span class="screen_background_shape screen_background_shape2"></span>
+                <span class="screen_background_shape screen_background_shape1"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Handle click event for "View Donation Requests" card
+            document.getElementById("viewDonationRequests").addEventListener("click", function () {
+                window.location.href = "view_donation_requests.html"; // Redirect to view_donation_requests.html
+            });
+
+            // Handle click event for "Select Donation Items" card
+            document.getElementById("selectDonationItems").addEventListener("click", function () {
+                window.location.href = "select_donation_items.html"; // Redirect to select_donation_items.html
+            });
+
+            // Handle click event for "Schedule Pickup" card
+            document.getElementById("schedulePickup").addEventListener("click", function () {
+                window.location.href = "schedule_pickup.html"; // Redirect to schedule_pickup.html
+            });
+
+            // Handle click event for "View Estimated Time of Arrival" card
+            document.getElementById("viewEstimatedTime").addEventListener("click", function () {
+                window.location.href = "view_estimated_time.html"; // Redirect to view_estimated_time.html
+            });
+
+            // Handle click event for "View Registered Organizations" card
+            document.getElementById("viewRegisteredOrganization").addEventListener("click", function () {
+                window.location.href = "view_registered_organizations.html"; // Redirect to view_registered_organizations.html
+            });
+
+            // Handle click event for "Update Account Information" card
+            document.getElementById("updateAccountInfo").addEventListener("click", function () {
+                window.location.href = "update_account_info.html"; // Redirect to update_account_info.html
+            });
+        });
+    </script>
+</body>
+
+</html>

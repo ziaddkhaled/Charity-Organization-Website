@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            min-height: calc(89.5vh - 60px);
+            width: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #D4F1F4;
+            overflow-x: hidden;
+            transition: 0s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #0f6b7c;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #0f6b7c;
+        }
+
+        .sidebar .closebtn {
+            position: sticky;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            left: 20px;
+            margin-left: 50px;
+        }
+
+        .openbtn {
+            font-size: 30px;
+            /* Increase the font size as desired */
+            cursor: pointer;
+            background-color: #D4F1F4;
+            color: #0f6b7c;
+            padding: 10px 15px;
+            border: none;
+            position: Sticky;
+            left: 0px;
+            top: auto;
+            z-index: 9999;
+            /* Ensure the toggle button is above other elements */
+        }
+
+
+
+        .openbtn:hover {
+            background-color: #D4F1F4;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+        }
+
+        .header_section {
+            position: relative;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+            /* Adjust margin to avoid overlap */
+        }
+
+        .logo {
+            margin-right: 10px;
+            max-width: 50px;
+            /* Limit the logo size */
+            height: auto;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            /* Maintain the font size of the title */
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            /* Adjust spacing between rows */
+        }
+
+        .square-button {
+            width: 350px;
+            /* Adjust button width as needed */
+            height: 250px;
+            /* Set height equal to width for square shape */
+            background-color: #fff;
+            /* Button background color */
+            color: #000000;
+            /* Button text color */
+            border: none;
+            /* Remove button border */
+            border-radius: 10px;
+            /* Button border radius */
+            font-size: 18px;
+            /* Button text size */
+            font-weight: bold;
+            /* Button text weight */
+            cursor: pointer;
+            /* Change cursor to pointer on hover */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            /* Add shadow */
+            margin: 10px;
+            /* Adjust spacing between buttons */
+        }
+
+        .square-button:hover {
+            background-color: #6A679E;
+            /* Change background color on hover */
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+        <!-- header  starts -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <button class="openbtn" onclick="toggleNav()" style="margin-left: -150px;">☰</button>
+                    <!-- Sidebar toggle button -->
+
+                    <a class="navbar-brand" href="index.html">
+                        <img src="images/Helping Hands.jpeg" alt="" style="margin-left: 100px;">
+                        <span style="font-weight: 2000;">
+                            Helping Hands
+                        </span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="s-1"> </span>
+                        <span class="s-2"> </span>
+                        <span class="s-3"> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                            <ul class="navbar-nav  ">
+                                <li class="nav-item active">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="homepage.html"> Home </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html"> Log Out </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-bell fa-lg"></i> <span
+                                            class="badge badge-pill badge-danger">3</span>
+                                        <!-- Example: display number of notifications -->
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item">Notification 1</a>
+                                        <a class="dropdown-item">Notification 2</a>
+                                        <a class="dropdown-item">Notification 3</a>
+                                        <!-- Add more notifications as needed -->
+                                    </div>
+                                </li>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
+    </div>
+
+    <!-- sidebar section starts -->
+    <div id="mySidebar" class="sidebar" style="width: 0px; height: 1000px; position: absolute;"">
+
+        <a href=" #">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <a href="#">Link 4</a>
+    </div>
+    <!-- end sidebar section -->
+
+    <!-- Page content -->
+    <div id="main">
+        <div class="button-row">
+            <button class="square-button"  onclick="viewRegistered()">View Registered Organizations/Donors</button>
+            <button class="square-button" onclick="viewRequested()">View Organizations/Donors requests</button>
+        </div>
+        <div class="button-row">
+            <button class="square-button" onclick="changePassword()">Change Password</button>
+            <button class="square-button" onclick="ReviewSubmissionsAdmin()">Review Submissions</button>
+        </div>
+        <!-- content here -->
+    </div>
+    <!-- end Page content -->
+
+    <section class="info_section layout_padding" id="info_section" style="position: absolute; width: 100%;">
+        <div class="container">
+            <div class="info_contact">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/location-white.png" alt="">
+                            <span>
+                                Gamal Abdel Nasser, New Cairo 1, Cairo Governorate, Egypt
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/telephone-white.png" alt="">
+                            <span>
+                                Call : +01212777100
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/envelope-white.png" alt="">
+                            <span>
+                                helping-hands@gmail.com
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="info_form">
+                        <form action="">
+                            <input type="text" placeholder="Enter your email">
+                            <button>
+                                subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="info_social">
+                        <div>
+                            <a href="">
+                                <img src="images/fb.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/twitter.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/linkedin.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/instagram.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- end info section -->
+
+    <footer class="container-fluid footer_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-9 mx-auto">
+                    <p>
+                        &copy; 2024 Software Project
+                        <a href="https://html.design/">Helping Hands Charity Organization</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleNav() {
+            var sidebar = document.getElementById("mySidebar");
+            var main = document.getElementById("main");
+            if (sidebar.style.width === "200px") {
+                sidebar.style.width = "0";
+                main.style.marginLeft = "0";
+            } else {
+                sidebar.style.width = "200px";
+                main.style.marginLeft = "200px";
+            }
+        }
+
+        function viewRegistered() {
+            // Redirect to the desired page
+            window.location.href = "ViewOrganizationsAndDonors.html";
+        }
+
+        function viewRequested() {
+            window.location.href="ReviewOrganizationAndDonorRequests.html"
+        }
+
+        function changePassword() {
+            window.location.href="PasswordChanging.html"
+        }
+        function ReviewSubmissionsAdmin() {
+            window.location.href="ReviewSubmissions.html"
+        }
+    </script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/script.js"></script> <!-- Add this line for JavaScript -->
+
+</body>
+
+</html>

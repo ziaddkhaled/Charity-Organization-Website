@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            min-height: calc(89.5vh - 60px);
+            width: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #D4F1F4;
+            overflow-x: hidden;
+            transition: 0s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #0f6b7c;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #0f6b7c;
+        }
+
+        .sidebar .closebtn {
+            position: sticky;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            left: 20px;
+            margin-left: 50px;
+        }
+
+        .openbtn {
+            font-size: 30px;
+            /* Increase the font size as desired */
+            cursor: pointer;
+            background-color: #D4F1F4;
+            color: #0f6b7c;
+            padding: 10px 15px;
+            border: none;
+            position: Sticky;
+            left: 0px;
+            top: auto;
+            z-index: 9999;
+            /* Ensure the toggle button is above other elements */
+        }
+
+
+        #map {
+            height: 300px;
+            /* Set a suitable height for your map */
+        }
+
+        .openbtn:hover {
+            background-color: #D4F1F4;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+        }
+
+        .header_section {
+            position: relative;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+            /* Adjust margin to avoid overlap */
+        }
+
+        .logo {
+            margin-right: 10px;
+            max-width: 50px;
+            /* Limit the logo size */
+            height: auto;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            /* Maintain the font size of the title */
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            /* Adjust spacing between rows */
+        }
+
+        .square-button {
+            width: 350px;
+            /* Adjust button width as needed */
+            height: 250px;
+            /* Set height equal to width for square shape */
+            background-color: #fff;
+            /* Button background color */
+            color: #000000;
+            /* Button text color */
+            border: none;
+            /* Remove button border */
+            border-radius: 10px;
+            /* Button border radius */
+            font-size: 18px;
+            /* Button text size */
+            font-weight: bold;
+            /* Button text weight */
+            cursor: pointer;
+            /* Change cursor to pointer on hover */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            /* Add shadow */
+            margin: 10px;
+            /* Adjust spacing between buttons */
+        }
+
+        .square-button:hover {
+            background-color: #6A679E;
+            /* Change background color on hover */
+        }
+
+        .input-box {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .input-box span.details {
+            display: block;
+            font-weight: 600;
+            /* Adjust font weight for better emphasis */
+            margin-bottom: 8px;
+            /* Increase margin bottom for better separation */
+            color: #333;
+            /* Choose a professional text color */
+            font-size: 16px;
+            /* Adjust font size for readability */
+            font-family: Arial, sans-serif;
+            /* Choose a professional font family */
+        }
+
+        .input-box input[type="text"],
+        .input-box select {
+            width: 100%;
+            height: 45px;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .input-box input[type="file"] {
+            display: none;
+        }
+
+        .input-box label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            height: 45px;
+            width: calc(100% - 20px);
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .button {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .button input[type="submit"] {
+            background: #4C489D;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .button input[type="submit"]:hover {
+            background: #6A679E;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .input-box {
+            margin-bottom: 20px;
+        }
+
+        #edit1 {
+            width: 100%;
+            /* Make the select element full width */
+            height: 45px;
+            /* Increase the height */
+            border-radius: 5px;
+            /* Add border radius for a more professional look */
+            padding: 10px;
+            /* Add padding for better spacing */
+            font-size: 16px;
+            /* Adjust font size */
+            border: 1px solid #ccc;
+            /* Add a border */
+            outline: none;
+            /* Remove the default outline */
+            transition: all 0.3s ease;
+            /* Add transition effect */
+        }
+
+        #successMessage {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+        <!-- header  starts -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <button class="openbtn" onclick="toggleNav()" style="margin-left: -150px;">☰</button>
+                    <!-- Sidebar toggle button -->
+
+                    <a class="navbar-brand" href="index.html">
+                        <img src="images/Helping Hands.jpeg" alt="" style="margin-left: 100px;">
+                        <span style="font-weight: 2000;">
+                            Helping Hands
+                        </span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="s-1"> </span>
+                        <span class="s-2"> </span>
+                        <span class="s-3"> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                            <ul class="navbar-nav  ">
+                                <li class="nav-item active">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="DoctorDashboard.html"> Home </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html"> Log Out </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-bell fa-lg"></i> <span
+                                            class="badge badge-pill badge-danger">3</span>
+                                        <!-- Example: display number of notifications -->
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item">Notification 1</a>
+                                        <a class="dropdown-item">Notification 2</a>
+                                        <a class="dropdown-item">Notification 3</a>
+                                        <!-- Add more notifications as needed -->
+                                    </div>
+                                </li>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
+    </div>
+
+    <!-- sidebar section starts -->
+    <div id="mySidebar" class="sidebar" style="width: 0px; height: 1000px; position: absolute;">
+
+        <a href=" CreatePostDoctor.html">Create Post</a>
+        <a href="ViewPostsDoctor.html">View My Posts</a>
+        <a href="doctorfullfilledposts.html">View My Fulfilled Posts</a>
+        <a href="accountmanagementdoctor.html">Account Management</a>
+        <a href="ViewOrganizationDoctor.html">View Organizations</a>
+        <a href="ViewOrgPostsDoctor.html">View Organization Posts</a>
+    </div>
+    <!-- end sidebar section -->
+
+    <!-- Page content -->
+    <div id="main">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <h2 style="text-align: center;">Account Management</h2>
+            <div class="content" style="width: 100%; max-width: 600px;">
+
+                <form action="#" id="editForm" onchange=" adjustSidebarHeight(); moveInfoSection();">
+                    <select required name="select from the below options" id="edit1" class="input-box">
+                        <option value="select"> Editing options</option>
+                        <option value="userinfo">User Information</option>
+                        <option value="password">Change Password</option>
+                        <option value="doctor">Clinic Details</option>
+                    </select>
+
+                    <div id="repinfo" class="input-box">
+
+
+                        <div id="userinfo" class="input-box">
+
+
+                            <div class="user-details">
+                                <div class="input-box">
+                                    <span class="details">first Name</span>
+                                    <input required type="text" placeholder="Enter Your first name">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">last Name</span>
+                                    <input required type="text" placeholder="Enter Your last name">
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details"> gender</span>
+                                    <select required>
+                                        <option value="">Select gender type</option>
+                                        <option value="female">Female</option>
+                                        <option value="Male">Male</option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Email</span>
+                                    <input required type="text" placeholder="Enter your email">
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Contact Number</span>
+                                    <input required type="text" placeholder="Enter Your contact number">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Area</span>
+                                    <input required type="text" placeholder="Enter area">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Governorate</span>
+                                    <input required type="text" placeholder="Enter governorate">
+                                </div>
+                                <div class="input-box">
+                                    <span class="details"> Address</span>
+                                    <input required type="text" placeholder="Enter Your address">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="password" class="input-box">
+                            <div class="input-box">
+                                <label for="currentPassword">Current Password:</label><br>
+                                <input type="password" id="currentPassword" name="currentPassword" required><br><br>
+
+                                <label for="newPassword">New Password:</label><br>
+                                <input type="password" id="newPassword" name="newPassword" required><br><br>
+
+                                <label for="confirmPassword">Confirm New Password:</label><br>
+                                <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+                            </div>
+                        </div>
+
+
+
+
+                        <div id="doctor" class="input-box">
+                            <div class="input-box">
+                                <span class="details">Required Documents</span>
+                                <span class="description">Please upload all required documents here such as (medical
+                                    license,id,references, insurance coverage, background checks)</span>
+                                <label for="documents" class="documents-label">
+                                    <i class="fas fa-folder-open"></i> Drag and drop folder or click to upload
+                                    <input type="file" id="documents" multiple required>
+                                </label>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Clinic Address</span>
+                                <input type="text" placeholder="Enter clinic address" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Area</span>
+                                <input type="text" placeholder="Enter area" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Governorate</span>
+                                <input type="text" placeholder="Enter governorate" required>
+                            </div>
+                            <h2>Pinpoint Your Clinic's Location</h2>
+
+                            <!-- Map container -->
+                            <div id="map" required></div>
+                            <div class="input-box">
+                                <span class="details">Specialty</span>
+                                <input type="text" placeholder="Please specify your specialty" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Pro-bono cases</span>
+                                <input type="text" placeholder="Please specify how many pro-bono cases you can take"
+                                    required>
+                            </div>
+                        </div>
+
+
+                        <div id="orgregisterbutton" class="button">
+                            <input type="submit" value="Edit">
+                        </div>
+
+
+
+
+
+
+
+
+
+                </form>
+
+
+                <div id="successMessage"
+                    style="display: none; background-color: #4CAF50; color: white; padding: 20px; border-radius: 5px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);">
+                    <div style="font-size: 24px; margin-bottom: 10px;">Editing Successful!</div>
+                    <div>Your changes have been saved successfully.</div>
+                    <div style="margin-top: 10px;">You will be redirected to the dashboard shortly.</div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+    <!-- content here -->
+    </div>
+    <!-- end Page content -->
+
+    <section class="info_section layout_padding" id="info_section"
+        style="position: absolute; width: 100%; margin-top: 5%;">
+        <div class="container">
+            <div class="info_contact">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/location-white.png" alt="">
+                            <span>
+                                Gamal Abdel Nasser, New Cairo 1, Cairo Governorate, Egypt
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/telephone-white.png" alt="">
+                            <span>
+                                Call : +01212777100
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="">
+                            <img src="images/envelope-white.png" alt="">
+                            <span>
+                                helping-hands@gmail.com
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="info_form">
+                        <form action="">
+                            <input type="text" placeholder="Enter your email">
+                            <button>
+                                subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="info_social">
+                        <div>
+                            <a href="">
+                                <img src="images/fb.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/twitter.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/linkedin.png" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <img src="images/instagram.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- end info section -->
+
+    <footer class="container-fluid footer_section" id="footer_section"
+        style="position: absolute;width:center; margin-top: 35%;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-9 mx-auto">
+                    <p>
+                        &copy; 2024 Software Project
+                        <a href="https://html.design/">Helping Hands Charity Organization</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUP5fw3jw8bvJ7yj9OskV5wdm5sNUbII4&callback=initMap"
+        async defer></script>
+    <script>
+        // Consolidate all JavaScript code into a single <script> tag
+        function initMap() {
+            // Default location (Cairo, Egypt)
+            var defaultLocation = { lat: 30.033, lng: 31.233 };
+
+            // Create a new map instance
+            var map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultLocation,
+                zoom: 10 // Adjust zoom level as needed
+            });
+
+            // Create a marker for the default location
+            var marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true // Allow marker to be dragged by user
+            });
+
+            // Add event listener to update latitude and longitude when marker position changes
+            google.maps.event.addListener(marker, "dragend", function (event) {
+                document.getElementById("latitude").innerHTML = event.latLng.lat();
+                document.getElementById("longitude").innerHTML = event.latLng.lng();
+            });
+        }
+        // Call hideAllDetails() to ensure all details divs are hidden initially
+        hideAllDetails();
+
+        // Add event listener after ensuring that the element exists in the DOM
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("edit1").addEventListener("change", function () {
+                var category = this.value;
+                // Hide all additional details divs
+                hideAllDetails();
+                // Show the corresponding additional details div based on the selected category
+                switch (category) {
+                    case "password":
+                        document.getElementById("password").style.display = "block";
+                        // Set input fields in other divs to not required
+                        setInputsRequired(false, "userinfo");
+                        setInputsRequired(false, "doctor");
+                        break;
+                    case "userinfo":
+                        document.getElementById("userinfo").style.display = "block";
+                        // Set input fields in other divs to not required
+                        setInputsRequired(false, "password");
+                        setInputsRequired(false, "doctor");
+                        break;
+                    case "doctor":
+                        document.getElementById("doctor").style.display = "block";
+                        // Set input fields in other divs to not required
+                        setInputsRequired(false, "password");
+                        setInputsRequired(false, "userinfo");
+                        break;
+                }
+            });
+        });
+
+        function setInputsRequired(required, divId) {
+            var inputs = document.querySelectorAll("#" + divId + " input, #" + divId + " select");
+            inputs.forEach(function (input) {
+                input.required = required;
+            });
+        }
+
+        function hideAllDetails() {
+            document.getElementById("password").style.display = "none";
+            document.getElementById("userinfo").style.display = "none";
+            document.getElementById("doctor").style.display = "none";
+        }
+
+        document.getElementById("editForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Check if all fields are filled (You can implement this check if needed)
+
+            // Check if the selected option is "Change Password"
+            var selectedOption = document.getElementById("edit1").value;
+            if (selectedOption === "password") {
+                // Your code to handle password change
+                var currentPassword = document.getElementById("currentPassword").value;
+                var newPassword = document.getElementById("newPassword").value;
+                var confirmPassword = document.getElementById("confirmPassword").value;
+
+                // Perform validation and password change process
+                if (newPassword !== confirmPassword) {
+                    alert("New password and confirm password do not match.");
+                    return;
+                }
+
+                // Send a request to your server to change the password
+                // Here, you would typically use AJAX to send the data to your server
+                // For demonstration purposes, let's assume the password change always succeeds
+                alert("Password changed successfully!");
+            }
+
+            // Show a JavaScript alert for overall form submission success
+            alert("Editing Successful!\nYour changes have been saved successfully.\nYou will be redirected to the dashboard shortly");
+
+            // Redirect after a delay
+            setTimeout(function () {
+                window.location.href = "DoctorDashboard.html"; // Redirect to some page
+            }, 1000);
+        });
+    </script>
+    <script>
+        function toggleNav() {
+            var sidebar = document.getElementById("mySidebar");
+            var main = document.getElementById("main");
+
+            if (sidebar.style.width === "200px") {
+                sidebar.style.width = "0";
+                main.style.marginLeft = "0";
+                sidebar.style.height = "auto"; // Reset height to auto when closing
+            } else {
+                sidebar.style.width = "200px";
+                main.style.marginLeft = "200px";
+                var contentHeight = document.getElementById("main").scrollHeight + 200 + "px"; // Add extra height
+                sidebar.style.height = contentHeight; // Set sidebar height to content height plus extra
+            }
+
+        }
+        document.getElementById("edit1").addEventListener("change", function () {
+            adjustSidebarHeight();
+            moveInfoSection();
+        });
+
+        document.getElementById("edit1").addEventListener("change", function () {
+            adjustSidebarHeight();
+            moveInfoSection();
+        });
+
+        function adjustSidebarHeight() {
+            var category = document.getElementById("edit1").value;
+            var sidebar = document.getElementById("mySidebar");
+            var height = 0; // Default height
+
+            switch (category) {
+                case "select":
+                    height = 1000; // Set the height for the default option
+                    break;
+                case "userinfo":
+                    height = 1500; // Set the height for user info option
+                    break;
+                case "password":
+                    height = 1200; // Set the height for password option
+                    break;
+                case "doctor":
+                    height = 2000;
+                    break;
+                default:
+                    // Default height or any additional handling
+                    break;
+            }
+
+            // Set the height of the sidebar
+            sidebar.style.height = height + "px";
+        }
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            moveInfoSection(); // Call the function when the DOM is loaded
+        });
+
+        // Function to move the info section and footer section based on the selected option
+        function moveInfoSection() {
+            var selectedOption = document.getElementById("edit1").value;
+            var infoSection = document.getElementById("info_section");
+            var footerSection = document.getElementById("footer_section");
+
+            if (selectedOption === "select") {
+                // Adjust the margin top for default option
+                infoSection.style.marginTop = "15%";
+                footerSection.style.marginTop = "45%";
+            } else {
+                // Reset the margin top for other options
+                infoSection.style.marginTop = "20%"; // Adjust this value as needed
+                footerSection.style.marginTop = "50%"; // Adjust this value as needed
+            }
+        }
+
+        // Add an event listener to the dropdown menu to detect changes
+        document.getElementById("edit1").addEventListener("change", function () {
+            moveInfoSection(); // Call the function when the dropdown value changes
+        });
+
+
+
+
+    </script>
+
+
+
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/script.js"></script> <!-- Add this line for JavaScript -->
+
+</body>
+
+</html>
